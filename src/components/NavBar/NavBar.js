@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import './NavBar.css';
+import { useState } from 'react';
 
 function NavBar() {
+  const [user, setUser] = useState(true)
   return (<>
     <label className='hamburger-menu' >
       <input type="checkbox" />
@@ -13,7 +15,7 @@ function NavBar() {
         <NavLink to='/'>Home</NavLink>
         </li>
         <li>
-        <NavLink to='/login'>Login/SignUp</NavLink>
+        <NavLink to={user ? '/login' : '/signup'}>Login/SignUp</NavLink>
         </li>
         </ul>
       </nav>

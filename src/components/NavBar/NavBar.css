@@ -77,11 +77,10 @@
 .sidebar {
   transition: translate var(--animation-timing);
   translate: -100%;
-  padding:  .25rem 1rem;
   padding-top: calc(var(--hamburger-height) + var(--hamburger-margin) + 1rem);
   background-color: var(--foreground);
   color: var(--background);
-  max-width: 10rem;
+  width: 11rem;
   min-height: 100vh;
 }
 
@@ -94,12 +93,15 @@ li {
   margin-bottom: 5px;
   font-weight: bolder;
   font-size: large;
-list-style: none;
+  list-style: none;
 }
-
-.nav a.active{
-  color: red;
-}
-.nav a{
+.nav a {
   color: inherit;
+}
+.nav a.active {
+  color: lawngreen;
+}
+.nav a:hover {
+  border: #555;
+  color: crimson;
 }
