@@ -65,7 +65,15 @@ const Signup = () => {
     setSuccess(true);
   }
 
-  return (
+  return (<>
+  {success ? (
+    <section>
+      <h1>Success!</h1>
+      <p>
+        <a href = "#">Sign In</a>
+      </p>
+    </section>
+  ) : (
     <section>
       <p
         ref={errRef}
@@ -188,6 +196,8 @@ const Signup = () => {
         </span>
       </p>
     </section>
+  )}
+    </>
   );
 };
 
