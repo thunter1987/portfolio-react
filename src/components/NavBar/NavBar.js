@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function NavBar() {
   const [user, setUser] = useState(true)
-  return (<>
+  return (<section className='navbar'>
     <label className='hamburger-menu' >
       <input type="checkbox" />
     </label>
@@ -20,7 +20,7 @@ function NavBar() {
         </ul>
       </nav>
     </aside>
-  </>
+  </section>
   )
 }
 

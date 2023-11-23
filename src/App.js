@@ -7,14 +7,14 @@ import Signup from './components/Signup:Login/Signup/Signup';
 
 function App() {
   return (
-   <div>
+    <div>
       <NavBar />
-        <Routes>
-          <Route exact path='/' Component={Home} />
-          <Route path='/login' Component={Login} />
-          <Route path='/signup' Component={Signup} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route exact path='/' Component={ Home } />
+        <Route path='/login' Component={ Login } />
+        <Route path='/signup' Component={ Signup } />
+      </Routes>
+    </div>
   );
 }
 
