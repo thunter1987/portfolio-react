@@ -5,7 +5,7 @@ import DashFooter from "./DashFooter";
 const DashLayout = () => {
   return (
     <>
-    <DashHeader />
+      <DashHeader />
       <div className="dash-container">
         <Outlet />
       </div>

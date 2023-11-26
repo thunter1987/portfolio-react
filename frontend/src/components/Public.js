@@ -8,9 +8,9 @@ const Public = () => {
           Welcome to <span className="nowrap">Tony's Portfolio App Page!</span>
         </h1>
       </header>
-      <main className="public_main">
+      <main className="public__main">
         <p>A recent graduate of Flatiron School</p>
-        <address className="public_addr">
+        <address className="public__addr">
           Tony Hunter
           <br />
           1234 Any Street
