@@ -2,7 +2,6 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
-const { response } = require('express')
 
 const login = asyncHandler(async (req, res) => {
     const { username, password } = req.body
@@ -39,7 +38,7 @@ const login = asyncHandler(async (req, res) => {
     )
 
     // Create secure cookie with refresh token
-    response.cookie('jwt', refreshToken, {
+    res.cookie('jwt', refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
