@@ -3,8 +3,11 @@ import { useUpdateNoteMutation, useDeleteNoteMutation } from "./notesApiSlice"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import useAuth from "../../hooks/useAuth"
 
 const EditNoteForm = ({ note, users }) => {
+
+    const { isManager, isAdmin } = useAuth()
 
     const [updateNote, {
         isLoading,
@@ -60,10 +63,10 @@ const EditNoteForm = ({ note, users }) => {
     const options = users.map(user => {
         return (
             <option
-                key={user.id}
-                value={user.id}
+                key={ user.id }
+                value={ user.id }
 
-            > {user.username}</option >
+            > { user.username }</option >
         )
     })
 
@@ -73,51 +76,54 @@ const EditNoteForm = ({ note, users }) => {
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
+    let deleteButton = null
+    if (isManager || isAdmin) {
+        deleteButton = (
+            <button className="icon-button" title="Delete" onClick={ onDeleteNoteClicked }>
+                <FontAwesomeIcon icon={ faTrashCan } />
+            </button>
+        )
+    }
+
     const content = (
         <>
-            <p className={errClass}>{errContent}</p>
+            <p className={ errClass }>{ errContent }</p>
 
-            <form className="form" onSubmit={e => e.preventDefault()}>
+            <form className="form" onSubmit={ e => e.preventDefault() }>
                 <div className="form__title-row">
-                    <h2>Edit Note #{note.ticket}</h2>
+                    <h2>Edit Note #{ note.ticket }</h2>
                     <div className="form__action-buttons">
                         <button
                             className="icon-button"
                             title="Save"
-                            onClick={onSaveNoteClicked}
-                            disabled={!canSave}
+                            onClick={ onSaveNoteClicked }
+                            disabled={ !canSave }
                         >
-                            <FontAwesomeIcon icon={faSave} />
+                            <FontAwesomeIcon icon={ faSave } />
                         </button>
-                        <button
-                            className="icon-button"
-                            title="Delete"
-                            onClick={onDeleteNoteClicked}
-                        >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                        </button>
+                        { deleteButton }
                     </div>
                 </div>
                 <label className="form__label" htmlFor="note-title">
                     Title:</label>
                 <input
-                    className={`form__input ${validTitleClass}`}
+                    className={ `form__input ${validTitleClass}` }
                     id="note-title"
                     name="title"
                     type="text"
                     autoComplete="off"
-                    value={title}
-                    onChange={onTitleChanged}
+                    value={ title }
+                    onChange={ onTitleChanged }
                 />
 
                 <label className="form__label" htmlFor="note-text">
                     Text:</label>
                 <textarea
-                    className={`form__input form__input--text ${validTextClass}`}
+                    className={ `form__input form__input--text ${validTextClass}` }
                     id="note-text"
                     name="text"
-                    value={text}
-                    onChange={onTextChanged}
+                    value={ text }
+                    onChange={ onTextChanged }
                 />
                 <div className="form__row">
                     <div className="form__divider">
@@ -128,26 +134,28 @@ const EditNoteForm = ({ note, users }) => {
                                 id="note-completed"
                                 name="completed"
                                 type="checkbox"
-                                checked={completed}
-                                onChange={onCompletedChanged}
+                                checked={ completed }
+                                onChange={ onCompletedChanged }
                             />
                         </label>
-
-                        <label className="form__label form__checkbox-container" htmlFor="note-username">
-                            ASSIGNED TO:</label>
-                        <select
-                            id="note-username"
-                            name="username"
-                            className="form__select"
-                            value={userId}
-                            onChange={onUserIdChanged}
-                        >
-                            {options}
-                        </select>
+                        { (isManager || isAdmin) && (<>
+                            <label className="form__label form__checkbox-container" htmlFor="note-username">
+                                ASSIGNED TO:</label>
+                            <select
+                                id="note-username"
+                                name="username"
+                                className="form__select"
+                                disabled={isAdmin }
+                                value={ userId }
+                                onChange={ onUserIdChanged }
+                            >
+                                { options }
+                            </select>
+                        </>) }
                     </div>
                     <div className="form__divider">
-                        <p className="form__created">Created:<br />{created}</p>
-                        <p className="form__updated">Updated:<br />{updated}</p>
+                        <p className="form__created">Created:<br />{ created }</p>
+                        <p className="form__updated">Updated:<br />{ updated }</p>
                     </div>
                 </div>
             </form>
