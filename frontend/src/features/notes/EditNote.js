@@ -1,14 +1,16 @@
 import { useParams } from 'react-router-dom'
+import { PulseLoader } from 'react-spinners/PulseLoader'
 import EditNoteForm from './EditNoteForm'
 import { useGetNotesQuery } from './notesApiSlice'
 import { useGetUsersQuery } from '../users/usersApiSlice'
 import useAuth from '../../hooks/useAuth'
-import PulseLoader from 'react-spinners/PulseLoader'
+import useTitle from '../../hooks/useTitle'
 
 const EditNote = () => {
   const { id } = useParams()
 
   const { username, isManager, isAdmin } = useAuth()
+  useTitle(`Edit Note -- ${username}`)
   const { note } = useGetNotesQuery('notesList', {
     selectFromResult: ({ data }) => ({ note: data?.entities[id] }),
   })
