@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
-import { useUpdateNoteMutation, useDeleteNoteMutation } from "./notesApiSlice"
-import { useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
-import useAuth from "../../hooks/useAuth"
+import { useState, useEffect } from 'react'
+import { useUpdateNoteMutation, useDeleteNoteMutation } from './notesApiSlice'
+import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import useAuth from '../../hooks/useAuth'
 
 const EditNoteForm = ({ note, users }) => {
   const { isManager, isAdmin } = useAuth()
@@ -25,21 +25,21 @@ const EditNoteForm = ({ note, users }) => {
 
   useEffect(() => {
     if (isSuccess || isDelSuccess) {
-      setTitle("")
-      setText("")
-      setUserId("")
-      navigate("/dash/notes")
+      setTitle('')
+      setText('')
+      setUserId('')
+      navigate('/dash/notes')
     }
   }, [isSuccess, isDelSuccess, navigate])
 
-  const onTitleChanged = (e) => setTitle(e.target.value)
-  const onTextChanged = (e) => setText(e.target.value)
-  const onCompletedChanged = (e) => setCompleted((prev) => !prev)
-  const onUserIdChanged = (e) => setUserId(e.target.value)
+  const onTitleChanged = e => setTitle(e.target.value)
+  const onTextChanged = e => setText(e.target.value)
+  const onCompletedChanged = e => setCompleted(prev => !prev)
+  const onUserIdChanged = e => setUserId(e.target.value)
 
   const canSave = [title, text, userId].every(Boolean) && !isLoading
 
-  const onSaveNoteClicked = async (e) => {
+  const onSaveNoteClicked = async e => {
     if (canSave) {
       await updateNote({ id: note.id, user: userId, title, text, completed })
     }
@@ -49,37 +49,37 @@ const EditNoteForm = ({ note, users }) => {
     await deleteNote({ id: note.id })
   }
 
-  const created = new Date(note.createdAt).toLocaleString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
+  const created = new Date(note.createdAt).toLocaleString('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
   })
-  const updated = new Date(note.updatedAt).toLocaleString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
+  const updated = new Date(note.updatedAt).toLocaleString('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
   })
 
-  const options = users.map((user) => {
+  const options = users.map(user => {
     return (
       <option key={user.id} value={user.id}>
-        {" "}
+        {' '}
         {user.username}
       </option>
     )
   })
 
-  const errClass = isError || isDelError ? "errmsg" : "offscreen"
-  const validTitleClass = !title ? "form__input--incomplete" : ""
-  const validTextClass = !text ? "form__input--incomplete" : ""
+  const errClass = isError || isDelError ? 'errmsg' : 'offscreen'
+  const validTitleClass = !title ? 'form__input--incomplete' : ''
+  const validTextClass = !text ? 'form__input--incomplete' : ''
 
-  const errContent = (error?.data?.message || delerror?.data?.message) ?? ""
+  const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
   let deleteButton = null
   if (isManager || isAdmin) {
@@ -98,7 +98,7 @@ const EditNoteForm = ({ note, users }) => {
     <>
       <p className={errClass}>{errContent}</p>
 
-      <form className='form' onSubmit={(e) => e.preventDefault()}>
+      <form className='form' onSubmit={e => e.preventDefault()}>
         <div className='form__title-row'>
           <h2>Edit Note #{note.ticket}</h2>
           <div className='form__action-buttons'>

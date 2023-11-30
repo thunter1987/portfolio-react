@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
-import { useNavigate } from "react-router-dom"
-import { useGetUsersQuery } from "./usersApiSlice"
-import { memo } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import { useGetUsersQuery } from './usersApiSlice'
+import { memo } from 'react'
 
 const User = ({ userId }) => {
-  const { user } = useGetUsersQuery("usersList", {
+  const { user } = useGetUsersQuery('usersList', {
     selectFromResult: ({ data }) => ({ user: data?.entities[userId] }),
   })
 
@@ -14,9 +14,9 @@ const User = ({ userId }) => {
   if (user) {
     const handleEdit = () => navigate(`/dash/users/${userId}`)
 
-    const userRolesString = user.roles.toString().replaceAll(",", ", ")
+    const userRolesString = user.roles.toString().replaceAll(',', ', ')
 
-    const cellStatus = user.active ? "" : "table__cell--inactive"
+    const cellStatus = user.active ? '' : 'table__cell--inactive'
 
     return (
       <tr className='table__row user'>
